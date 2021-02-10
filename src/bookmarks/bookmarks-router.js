@@ -2,6 +2,8 @@ const express = require('express')
 const { isWebUri } = require('valid-url')
 const xss = require('xss')
 const logger = require('../logger')
+const store = require('../store')
+const uuid = require('uuid/v4')
 const BookarksService = require('./bookmarks-service')
 
 const bookmarksRouter = express.Router()
@@ -18,11 +20,7 @@ const serializeBookmark = bookmark => ({
 bookmarksRouter
   .route('/bookmarks')
   .get((req, res, next) => {
-    BookarksService.getAllBookmarks(req.app.get('db'))
-      .then(bookmarks => {
-        res.json(bookmarks.map(serializeBookmark))
-      })
-      .catch(next)
+    res.json(store.bookmarks)
   })
   .post(bodyParser, (req, res, next) => {
     for (const field of ['title', 'url', 'rating']) {
