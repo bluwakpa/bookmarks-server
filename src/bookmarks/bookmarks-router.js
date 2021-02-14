@@ -3,8 +3,8 @@ const uuid = require("uuid/v4");
 const bookmarkRouter = express.Router();
 const bodyParser = express.json();
 
-const logger = require("./logger");
-const bookmarks = require("./dataStore");
+const logger = require("../logger");
+const bookmarks = require("../dataStore");
 
 bookmarkRouter
   .route("/")

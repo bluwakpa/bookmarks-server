@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
@@ -8,7 +7,7 @@ const cors = require("cors");
 const { NODE_ENV } = require("./config");
 const validateBearerToken = require("./authorization");
 const errorHandler = require("./handle-error");
-const bookmarkRouter = require("./bookmark-router");
+const bookmarkRouter = require("./bookmarks/bookmarks-router");
 
 const app = express();
 
