@@ -17,7 +17,7 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 app.use(validateBearerToken);
-app.use("/api/bookmarks", bookmarkRouter);
+app.use("/bookmarks", bookmarkRouter);
 app.use(errorHandler);
 
 module.exports = app;

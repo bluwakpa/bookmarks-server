@@ -4,12 +4,12 @@ const bookmarkRouter = express.Router();
 const bodyParser = express.json();
 
 const logger = require("../logger");
-const bookmarks = require("../dataStore");
+const store = require("../dataStore");
 
 bookmarkRouter
   .route("/")
   .get((req, res) => {
-    res.json(bookmarks);
+    res.json(store.bookmarks);
   })
   .post(bodyParser, (req, res) => {
     const { title, url, description, rating } = req.body;
@@ -52,7 +52,7 @@ bookmarkRouter
       rating
     };
 
-    bookmarks.push(bookmark);
+    store.bookmarks.push(bookmark);
 
     logger.info(`Bookmark with id ${id} created.`);
     res
@@ -65,7 +65,7 @@ bookmarkRouter
   .route("/:id")
   .get((req, res) => {
     const { id } = req.params;
-    const bookmark = bookmarks.find(bm => bm.id == id);
+    const bookmark = store.bookmarks.find(bm => bm.id == id);
 
     if (!bookmark) {
       logger.error(`Bookmark with ${id} not found.`);
@@ -75,14 +75,14 @@ bookmarkRouter
   })
   .delete((req, res) => {
     const { id } = req.params;
-    const bmIndex = bookmarks.findIndex(bm => bm.id == id);
+    const bmIndex = store.bookmarks.findIndex(bm => bm.id == id);
 
     if (bmIndex === -1) {
       logger.error(`Bookmark with id ${id} not found.`);
-      return res.status(404).send("Not Found");
+      return res.status(404).send("Bookmark Not Found");
     }
 
-    bookmarks.splice(bmIndex, 1);
+    store.bookmarks.splice(bmIndex, 1);
     logger.info(`Bookmark with id ${id} deleted.`);
     res.status(204).end();
   });
