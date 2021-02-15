@@ -16,15 +16,15 @@ bookmarkRouter
 
     if (!title || title.trim().length < 1) {
       logger.error("Title is required");
-      return res.status(400).send("Title must be longer than 1 character");
+      return res.status(400).send("'title' is required");
     }
 
     if (!url || url.trim().length < 5 || !url.includes("http")) {
-      logger.error("URL is required");
+      logger.error("'url' must be a valid URL");
       return res
         .status(400)
         .send(
-          "Url must include protocol and be at least 5 characters in length"
+          "'url' must be a valid URL"
         );
     }
 
